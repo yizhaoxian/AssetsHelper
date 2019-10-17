@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsHelper.DBHelper", "As
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsHelper.IDBHelper", "AssetsHelper.IDBHelper\AssetsHelper.IDBHelper.csproj", "{ADAFB8C5-97A8-42BD-8B04-CC23D47F2DC3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssetsHelper.Models", "AssetsHelper.Models\AssetsHelper.Models.csproj", "{40F24E94-7104-432D-84F5-73D870767C9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{ADAFB8C5-97A8-42BD-8B04-CC23D47F2DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADAFB8C5-97A8-42BD-8B04-CC23D47F2DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADAFB8C5-97A8-42BD-8B04-CC23D47F2DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F24E94-7104-432D-84F5-73D870767C9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F24E94-7104-432D-84F5-73D870767C9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F24E94-7104-432D-84F5-73D870767C9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F24E94-7104-432D-84F5-73D870767C9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,6 @@
+D:\Project\AssetsHelper\AssetsHelper.Models\bin\Debug\AssetsHelper.Models.dll
+D:\Project\AssetsHelper\AssetsHelper.Models\bin\Debug\AssetsHelper.Models.pdb
+D:\Project\AssetsHelper\AssetsHelper.Models\obj\Debug\AssetsHelper.Models.csprojAssemblyReference.cache
+D:\Project\AssetsHelper\AssetsHelper.Models\obj\Debug\AssetsHelper.Models.csproj.CoreCompileInputs.cache
+D:\Project\AssetsHelper\AssetsHelper.Models\obj\Debug\AssetsHelper.Models.dll
+D:\Project\AssetsHelper\AssetsHelper.Models\obj\Debug\AssetsHelper.Models.pdb

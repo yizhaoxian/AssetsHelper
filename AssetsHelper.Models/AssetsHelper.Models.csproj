@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{08ED639E-14BA-4971-B618-1AE95082E900}</ProjectGuid>
+    <ProjectGuid>{40F24E94-7104-432D-84F5-73D870767C9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AssetsHelper.DBHelper</RootNamespace>
-    <AssemblyName>AssetsHelper.DBHelper</AssemblyName>
+    <RootNamespace>AssetsHelper.Models</RootNamespace>
+    <AssemblyName>AssetsHelper.Models</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,11 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dapper.2.0.30\lib\net461\Dapper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,24 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\BaseDBHelper.cs" />
-    <Compile Include="CompanyHelper.cs" />
-    <Compile Include="Base\IDBHelper.cs" />
-    <Compile Include="DeptHelper.cs" />
+    <Compile Include="Assets.cs" />
+    <Compile Include="Commpany.cs" />
+    <Compile Include="Dept.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AssetsHelper.IDBHelper\AssetsHelper.IDBHelper.csproj">
-      <Project>{adafb8c5-97a8-42bd-8b04-cc23d47f2dc3}</Project>
-      <Name>AssetsHelper.IDBHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\AssetsHelper.Models\AssetsHelper.Models.csproj">
-      <Project>{40f24e94-7104-432d-84f5-73d870767c9a}</Project>
-      <Name>AssetsHelper.Models</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

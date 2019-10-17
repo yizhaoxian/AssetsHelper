@@ -14,3 +14,5 @@ D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.DBHelper.pdb
 D:\Project\AssetsHelper\BatchTransfer\bin\Debug\Dapper.xml
 D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csproj.CopyComplete
 D:\Project\AssetsHelper\BatchTransfer\bin\Debug\App.config
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.Models.dll
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.Models.pdb

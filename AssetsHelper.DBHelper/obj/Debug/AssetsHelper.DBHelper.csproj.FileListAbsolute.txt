@@ -9,3 +9,5 @@ D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.cs
 D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.csproj.CopyComplete
 D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.dll
 D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.pdb
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.Models.dll
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.Models.pdb

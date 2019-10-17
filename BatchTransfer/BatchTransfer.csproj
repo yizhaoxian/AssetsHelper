@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{291F5312-5173-486D-897C-11048048BBF3}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>BatchTransfer</RootNamespace>
     <AssemblyName>BatchTransfer</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -85,6 +88,10 @@
     <ProjectReference Include="..\AssetsHelper.DBHelper\AssetsHelper.DBHelper.csproj">
       <Project>{08ed639e-14ba-4971-b618-1ae95082e900}</Project>
       <Name>AssetsHelper.DBHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AssetsHelper.Models\AssetsHelper.Models.csproj">
+      <Project>{40f24e94-7104-432d-84f5-73d870767c9a}</Project>
+      <Name>AssetsHelper.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

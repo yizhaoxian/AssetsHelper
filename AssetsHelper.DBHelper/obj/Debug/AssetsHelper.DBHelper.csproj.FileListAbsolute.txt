@@ -1,0 +1,11 @@
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.DBHelper.dll
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.DBHelper.pdb
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.IDBHelper.dll
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\Dapper.dll
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\AssetsHelper.IDBHelper.pdb
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\bin\Debug\Dapper.xml
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.csprojAssemblyReference.cache
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.csproj.CoreCompileInputs.cache
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.csproj.CopyComplete
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.dll
+D:\Project\AssetsHelper\AssetsHelper.DBHelper\obj\Debug\AssetsHelper.DBHelper.pdb

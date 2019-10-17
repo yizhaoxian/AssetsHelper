@@ -1,0 +1,16 @@
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\BatchTransfer.exe.config
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\BatchTransfer.exe
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\BatchTransfer.pdb
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csprojAssemblyReference.cache
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.Properties.Resources.resources
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csproj.GenerateResource.cache
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csproj.CoreCompileInputs.cache
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.exe
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.pdb
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.Index.resources
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.DBHelper.dll
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\Dapper.dll
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.DBHelper.pdb
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\Dapper.xml
+D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csproj.CopyComplete
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\App.config

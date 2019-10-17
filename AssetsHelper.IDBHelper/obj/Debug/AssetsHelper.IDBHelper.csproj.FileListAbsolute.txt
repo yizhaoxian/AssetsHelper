@@ -1,0 +1,5 @@
+D:\Project\AssetsHelper\AssetsHelper.IDBHelper\bin\Debug\AssetsHelper.IDBHelper.dll
+D:\Project\AssetsHelper\AssetsHelper.IDBHelper\bin\Debug\AssetsHelper.IDBHelper.pdb
+D:\Project\AssetsHelper\AssetsHelper.IDBHelper\obj\Debug\AssetsHelper.IDBHelper.csproj.CoreCompileInputs.cache
+D:\Project\AssetsHelper\AssetsHelper.IDBHelper\obj\Debug\AssetsHelper.IDBHelper.dll
+D:\Project\AssetsHelper\AssetsHelper.IDBHelper\obj\Debug\AssetsHelper.IDBHelper.pdb

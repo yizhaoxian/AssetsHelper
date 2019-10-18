@@ -27,6 +27,27 @@ namespace AssetsHelper.DBHelper
         }
 
         /// <summary>
+        ///  加载所有子部门(含自己)
+        /// </summary>
+        /// <param name="companyid"></param>
+        /// <param name="parentid"></param>
+        /// <returns></returns>
+        public IList<DeptData> LoadAll(int companyid, int parentid)
+        {
+            //不允许改动字段顺序
+            var sql = $@";WITH t1 AS(
+	SELECT id,code,name,parentId,parentStr FROM dbo.Dept WHERE companyId={companyid} AND id ={parentid} and [status]=1
+	UNION ALL
+	SELECT s.id,s.code,s.name,s.parentId,s.parentStr FROM t1 AS p
+	INNER JOIN dbo.Dept s ON s.parentId=p.id
+	WHERE s.status=1  
+ )
+ SELECT id,code,name,parentId,parentStr FROM t1";
+            return UsingConnectionQueryList<DeptData>(sql);
+        }
+
+
+        /// <summary>
         /// 更新当前部门的所属城市，只更新传入的部门，不会去更新子部门
         /// </summary>
         /// <param name="oldCompanyId">原城市</param>

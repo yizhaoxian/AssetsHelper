@@ -22,7 +22,7 @@ namespace BatchTransfer
             _deptHelper = new DeptHelper();
             _companyHelper = new CompanyHelper();
         }
-
+      
         #region 事件
         private void Index_Load(object sender, EventArgs e)
         {
@@ -101,16 +101,66 @@ namespace BatchTransfer
 
                 for (int i = 0; i < checkIds.Count; i++)
                 {
-                    var dept = _deptHelper.GetById<Dept>(gotoDeptId);
-                    // 1、转移部门
-                    _deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, checkIds[i], gotoDeptId, dept.parentStr + "," + checkIds[i]);
+                    var dept_goto = _deptHelper.GetById<Dept>(gotoDeptId);
+                    if (dept_goto != null)
+                    {
+                        // 1、转移部门 
+                        //_deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, checkIds[i], gotoDeptId, dept_goto.parentStr + "," + checkIds[i]);
+
+                        // 2.1、查找所有子部门(含本身)
+                        var deptlist = _deptHelper.LoadAll(oldCompanyId, checkIds[i]);
+                        // 2.2、更新所有子部门(含本身) 
+                        //UpdateSubDeptCompany(checkIds[i], deptlist, oldCompanyId, newCompanyId, new DeptData { id = dept_goto.id, parentStr = dept_goto.parentStr });
+                        UpdateSubDeptCompany(checkIds[i], deptlist, oldCompanyId, newCompanyId, dept_goto.id, dept_goto.parentStr);
+                    } 
+                } 
+                //2、新城市增加\资产分类，并更新分类的parentId\parentStr  
+                //3、将原来的资产分类改为新增分类  
+            }
+        }
+
+        /// <summary>
+        /// 更新所有部门的新城市id,parentid,parentstr
+        /// </summary>
+        /// <param name="parentid"></param>
+        /// <param name="deptDatas"></param>
+        private void UpdateSubDeptCompany1(int parentId, IList<DeptData> deptDatas, int oldCompanyId, int newCompanyId, DeptData gotoDept)
+        {
+            if (deptDatas == null) return;
+            var parentDept = deptDatas.FirstOrDefault(l => l.id == parentId);
+            if (parentDept == null) return;
+            //转移父部门自身城市
+            _deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, parentId, gotoDept.id, gotoDept.parentStr + "," + parentId);
+
+            var sublist = deptDatas.Where(l => l.parentId == parentDept.id).ToList();
+            if (sublist != null && sublist.Count > 0)
+            {
+                for (int i = 0; i < sublist.Count; i++)
+                {
+                    UpdateSubDeptCompany1(sublist[0].id, deptDatas, oldCompanyId, newCompanyId, parentDept);
                 }
+            }
+        }
 
+        /// <summary>
+        /// 更新所有部门的新城市id,parentid,parentstr
+        /// </summary>
+        /// <param name="parentid"></param>
+        /// <param name="deptDatas"></param>
+        private void UpdateSubDeptCompany(int sourceParentId, IList<DeptData> deptDatas, int oldCompanyId, int newCompanyId, int newParentId, string newParentStr)
+        {
+            if (deptDatas == null) return;
+            //转移父部门自身城市
+            var newpstr = newParentStr + "," + sourceParentId;
+            _deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, sourceParentId, newParentId, newpstr);
 
-                //2、新城市增加\资产分类，并更新分类的parentId\parentStr 
-
-                //3、将原来的资产分类改为新增分类 
-
+            var sublist = deptDatas.Where(l => l.parentId == sourceParentId).ToList();
+            if (sublist != null && sublist.Count > 0)
+            {
+                for (int i = 0; i < sublist.Count; i++)
+                {
+                    UpdateSubDeptCompany(sublist[i].id, deptDatas, oldCompanyId, newCompanyId, sourceParentId, newpstr);
+                }
             }
         }
 

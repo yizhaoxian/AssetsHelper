@@ -16,13 +16,24 @@ namespace BatchTransfer
     {
         DeptHelper _deptHelper;
         CompanyHelper _companyHelper;
+        AssetCategoryHelper _assetCategoryHelper;
+        AssetHelper _assetHelper;
+
+        IList<AssetCategory> assetCategoriesTemp = new List<AssetCategory>();
+        /// <summary>
+        /// 新城市的所有资产分类
+        /// </summary>
+        IList<AssetCategory> assetCategorieAllNewCompany = new List<AssetCategory>();
+
         public Index()
         {
             InitializeComponent();
             _deptHelper = new DeptHelper();
             _companyHelper = new CompanyHelper();
+            _assetCategoryHelper = new AssetCategoryHelper();
+            _assetHelper = new AssetHelper();
         }
-      
+
         #region 事件
         private void Index_Load(object sender, EventArgs e)
         {
@@ -59,7 +70,7 @@ namespace BatchTransfer
             int.TryParse(this.GoToCityList.SelectedValue.ToString(), out companyid);
             this.GoToCityId.Text = "城市Id:" + companyid;
         }
-
+         
         /// <summary>
         /// 确认转移
         /// </summary>
@@ -98,49 +109,30 @@ namespace BatchTransfer
                  * 2、新增资产分类 , 并更新parentId\parentStr 
                  * 3、将原来的资产分类改为新增分类 
                  */
-
+                assetCategorieAllNewCompany = _assetCategoryHelper.LoadAll(newCompanyId);    //新城市的所有分类 
                 for (int i = 0; i < checkIds.Count; i++)
                 {
                     var dept_goto = _deptHelper.GetById<Dept>(gotoDeptId);
                     if (dept_goto != null)
                     {
-                        // 1、转移部门 
-                        //_deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, checkIds[i], gotoDeptId, dept_goto.parentStr + "," + checkIds[i]);
-
-                        // 2.1、查找所有子部门(含本身)
+                        /**************************** 转移部门 ****************************/
+                        // 1.1、查找所有子部门(含本身)
                         var deptlist = _deptHelper.LoadAll(oldCompanyId, checkIds[i]);
-                        // 2.2、更新所有子部门(含本身) 
-                        //UpdateSubDeptCompany(checkIds[i], deptlist, oldCompanyId, newCompanyId, new DeptData { id = dept_goto.id, parentStr = dept_goto.parentStr });
+                        // 1.2、更新所有子部门(含本身)  
                         UpdateSubDeptCompany(checkIds[i], deptlist, oldCompanyId, newCompanyId, dept_goto.id, dept_goto.parentStr);
-                    } 
-                } 
-                //2、新城市增加\资产分类，并更新分类的parentId\parentStr  
-                //3、将原来的资产分类改为新增分类  
-            }
-        }
-
-        /// <summary>
-        /// 更新所有部门的新城市id,parentid,parentstr
-        /// </summary>
-        /// <param name="parentid"></param>
-        /// <param name="deptDatas"></param>
-        private void UpdateSubDeptCompany1(int parentId, IList<DeptData> deptDatas, int oldCompanyId, int newCompanyId, DeptData gotoDept)
-        {
-            if (deptDatas == null) return;
-            var parentDept = deptDatas.FirstOrDefault(l => l.id == parentId);
-            if (parentDept == null) return;
-            //转移父部门自身城市
-            _deptHelper.UpdateCompanyId(oldCompanyId, newCompanyId, parentId, gotoDept.id, gotoDept.parentStr + "," + parentId);
-
-            var sublist = deptDatas.Where(l => l.parentId == parentDept.id).ToList();
-            if (sublist != null && sublist.Count > 0)
-            {
-                for (int i = 0; i < sublist.Count; i++)
-                {
-                    UpdateSubDeptCompany1(sublist[0].id, deptDatas, oldCompanyId, newCompanyId, parentDept);
+                        /*************************** 新增资产分类并更新资产分类id *************/
+                        var depts = "1295,4511,1296";
+                        var categroys_source = _assetCategoryHelper.LoadAll(depts);         //转移资产的所有分类 
+                        for (int c = 0; c < categroys_source.Count; c++)
+                        {
+                            CopyCategory(categroys_source[c], newCompanyId, depts, categroys_source[c].id);
+                        }
+                    }
                 }
             }
         }
+
+        #endregion
 
         /// <summary>
         /// 更新所有部门的新城市id,parentid,parentstr
@@ -164,9 +156,6 @@ namespace BatchTransfer
             }
         }
 
-        #endregion
-
-
         /// <summary>
         /// 初始化城市下拉列表
         /// </summary>
@@ -177,9 +166,10 @@ namespace BatchTransfer
             this.SourceCityList.DataSource = companyList;
             this.SourceCityList.DisplayMember = "name";
             this.SourceCityList.ValueMember = "id";
-            var companyList2 = new List<CompanyNameData>();
-            companyList2.AddRange(companyList);
-            this.GoToCityList.DataSource = companyList2;
+            var gotoCompanyList = new List<CompanyNameData>();
+            gotoCompanyList.Add(new CompanyNameData { id = 0, name = "请选择接收资产的城市" });
+            gotoCompanyList.AddRange(companyList);
+            this.GoToCityList.DataSource = gotoCompanyList;
             this.GoToCityList.DisplayMember = "name";
             this.GoToCityList.ValueMember = "id";
             return companyList != null ? companyList[0].id : 0;
@@ -259,5 +249,105 @@ namespace BatchTransfer
             }
             return checkIds;
         }
+
+
+        #region 复制资产分类
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="assetCategorySource"></param>
+        /// <param name="newCompanyId"></param>
+        /// <param name="assetusingDeptIds"></param>
+        /// <param name="originalCategoryId"></param>
+        /// <param name="assetCategorieGoto">新城市的所有资产分类</param>
+        private void CopyCategory(AssetCategory assetCategorySource, int newCompanyId, string assetusingDeptIds, int originalCategoryId)
+        {
+            //查看分类是否存在
+            var existsCategory = assetCategorieAllNewCompany.FirstOrDefault(l =>
+                     l.name == assetCategorySource.name
+                  && l.btyte == assetCategorySource.btyte
+                  && l.code == assetCategorySource.code
+              );
+            if (existsCategory != null)
+            {
+                if (assetCategorySource.id == originalCategoryId)//存在相同分类，不用复制新分类，直接更新资产分类id
+                {
+                    _assetHelper.UpdateCategoryId(existsCategory.id, assetCategorySource.id, assetusingDeptIds);
+                }
+                else
+                {
+                    var parentStr = existsCategory.parentStr;
+                    var newCategoryId = existsCategory.id;
+                    if (assetCategoriesTemp.Count > 0)
+                    {
+                        for (int i = assetCategoriesTemp.Count - 1; i >= 0; i--)
+                        {
+                            newCategoryId = AddAssetCategory(assetCategoriesTemp[i], newCategoryId, ref parentStr, newCompanyId, originalCategoryId, assetusingDeptIds);
+                            assetCategoriesTemp.RemoveAt(i);//移除临时集合
+                        }
+                    }
+                }
+                return;
+            }
+
+            //如果相同分类不存在 新增
+            if (assetCategorySource.parentId > 0)
+            {
+                var assetCategoryParent = _assetCategoryHelper.GetById<AssetCategory>(assetCategorySource.parentId);
+                if (assetCategoryParent != null)
+                {
+                    assetCategoriesTemp.Add(assetCategorySource);
+                    CopyCategory(assetCategoryParent, newCompanyId, assetusingDeptIds, originalCategoryId);
+                }
+                else
+                {
+                    assetCategorySource.parentId = 0;
+                    CopyCategory(assetCategorySource, newCompanyId, assetusingDeptIds, originalCategoryId);
+                }
+            }
+            else
+            {
+                var parentStr = "0";
+                var newCategoryId = AddAssetCategory(assetCategorySource, 0, ref parentStr, newCompanyId, originalCategoryId, assetusingDeptIds);
+                if (assetCategoriesTemp.Count > 0)
+                {
+                    for (int i = assetCategoriesTemp.Count - 1; i >= 0; i--)
+                    {
+                        newCategoryId = AddAssetCategory(assetCategoriesTemp[i], newCategoryId, ref parentStr, newCompanyId, originalCategoryId, assetusingDeptIds);
+                        assetCategoriesTemp.RemoveAt(i);//移除临时集合
+                    }
+                }
+            }
+        }
+
+        private int AddAssetCategory(AssetCategory assetCategorySource, int parentid, ref string parentStr, int newCompanyId, int originalCategoryId, string assetusingDeptIds)
+        {
+            //1、复制到新城市，最后返回新分类id
+            var newCategoryId = _assetCategoryHelper.InsertCopy(assetCategorySource.id, newCompanyId);
+            //2、更新分类parentId，parentStr 
+            parentStr += "," + newCategoryId;
+            _assetCategoryHelper.UpdateParent(newCategoryId, parentid, parentStr);
+            //3、更新资产的分类Id
+            if (assetCategorySource.id == originalCategoryId)
+            {
+                _assetHelper.UpdateCategoryId(newCategoryId, assetCategorySource.id, assetusingDeptIds);
+            }
+            //将新添加分类放入到临时表里，减少数据库查询
+            assetCategorieAllNewCompany.Add(new AssetCategory
+            {
+                id = newCategoryId,
+                companyId = newCompanyId,
+                name = assetCategorySource.name,
+                code = assetCategorySource.code,
+                btyte = assetCategorySource.btyte,
+                parentId = parentid,
+                parentStr = parentStr,
+                status = 1
+            });
+            return newCategoryId;
+        }
+
+        #endregion
     }
 }

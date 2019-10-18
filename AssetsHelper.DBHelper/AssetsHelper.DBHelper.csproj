@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetHelper.cs" />
     <Compile Include="Base\BaseDBHelper.cs" />
+    <Compile Include="AssetCategoryHelper.cs" />
     <Compile Include="CompanyHelper.cs" />
     <Compile Include="Base\IDBHelper.cs" />
     <Compile Include="DeptHelper.cs" />

@@ -34,13 +34,29 @@ namespace AssetsHelper.DBHelper
             return UsingConnection(connection => connection.QueryFirstOrDefault<T>(sql));
         }
 
-
         public static int UsingConnectionExecute(string sql)
         {
             return UsingConnection(conn => conn.Execute(sql));
         }
 
-        public static TResult UsingConnection<TResult>(Func<IDbConnection, TResult> action)
+        /// <summary>
+        /// 执行存储过程
+        /// </summary>
+        /// <param name="procname"></param>
+        /// <param name="param"></param>
+        /// <returns></returns>
+        public static TResult UsingConnectionExecuteProc<TResult>(string procname, DynamicParameters param, DbType resultDbType)
+        {
+
+            return UsingConnection(conn =>
+            { 
+                param.Add("@RESULT", dbType: resultDbType, direction: ParameterDirection.ReturnValue);
+                var newid = conn.Execute(procname, param, commandType: CommandType.StoredProcedure);
+                return param.Get<TResult>("@RESULT");
+            });
+        }
+
+        private static TResult UsingConnection<TResult>(Func<IDbConnection, TResult> action)
         {
             try
             {
@@ -57,9 +73,7 @@ namespace AssetsHelper.DBHelper
             {
                 throw;//抛出异常
             }
-        }
-
-
+        }  
 
         /*
                 public void Insert()

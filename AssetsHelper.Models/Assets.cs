@@ -10,5 +10,6 @@ namespace AssetsHelper.Models
     {
         public int id { get; set; }
         public string num { get; set; }
+        public decimal? price { get; set; }
     } 
 }

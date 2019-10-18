@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Assets.cs" />
     <Compile Include="Commpany.cs" />
+    <Compile Include="AssetCategory.cs" />
     <Compile Include="Dept.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

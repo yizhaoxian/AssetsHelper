@@ -16,3 +16,6 @@ D:\Project\AssetsHelper\BatchTransfer\obj\Debug\BatchTransfer.csproj.CopyComplet
 D:\Project\AssetsHelper\BatchTransfer\bin\Debug\App.config
 D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.Models.dll
 D:\Project\AssetsHelper\BatchTransfer\bin\Debug\AssetsHelper.Models.pdb
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\NLog.config
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\NLog.dll
+D:\Project\AssetsHelper\BatchTransfer\bin\Debug\NLog.xml
